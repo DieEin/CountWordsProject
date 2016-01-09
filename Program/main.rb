@@ -23,4 +23,6 @@ repo_links.each do |link|
 			`ruby ../../Program/count_words.rb #{filename}`
 		end
 	end
+
+	Dir.chdir('..')
 end
