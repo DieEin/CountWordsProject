@@ -1,4 +1,4 @@
-require_relative 'Count_words/word_counter.rb'
+require_relative 'B_12_Emiliqn_Gospodinov/word_counter.rb'
 
 words = ARGV[0]
 a = 1
