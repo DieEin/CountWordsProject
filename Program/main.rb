@@ -1,16 +1,16 @@
-repo_links = []
+$repo_links = []
 
-repositories = ['Ruby_Repositories', 'CC_Repositories', 'Java_Repositories']
-text_files = ['ruby_repos.txt', 'cc_repos.txt', 'java_repos.txt']
-cloning_folder = 'test'
-expected_extentions = ['.rb', ['.cc', '.cpp', '.h'], '.java']
+$repositories = ['Ruby_Repositories', 'CC_Repositories', 'Java_Repositories']
+$text_files = ['ruby_repos.txt', 'cc_repos.txt', 'java_repos.txt']
+$cloning_folder = 'test'
+$expected_extentions = ['.rb', ['.cc', '.cpp', '.h'], '.java']
 counter = 0.to_i
 
-@hash = Hash.new(0)
-@count = 0.to_i
+$hash = Hash.new(0)
+$count = 0.to_i
 
 def clone_and_run(repo_links)
-	Dir.chdir(cloning_folder)
+	Dir.chdir($cloning_folder)
 
 	repo_links.each do |link|
 	  `git clone #{link}`
@@ -31,23 +31,23 @@ def globbing
 			after_dot = filename.split('.').last
 
 			#run(after_dot, expected_extentions[counter], filename)
-			if after_dot.include?(expected_extentions[counter])
+			if after_dot.include?($expected_extentions[counter])
 				parse_file(filename)
 			end
 		elsif File.directory?(filename)
 			Dir.chdir(filename)
 			globbing()
-			Dir.chdir(..)
+			Dir.chdir('..')
 		end
 	end
 end
 
 def parse(string)
-	@count += string.scan(/[[:punct:]]/).count
+	$count += string.scan(/[[:punct:]]/).count
 	words = string.downcase.scan(/\w+/)
 
 	words.each do |word|
-		@hash[word] += 1
+		$hash[word] += 1
 	end
 end
 
@@ -70,14 +70,14 @@ while true
 	end
 
 	Dir.chdir('..')
-	Dir.chdir(repositories[counter])
-	File.readlines(text_files[counter]).each do |line|
-		repo_links << line
+	Dir.chdir($repositories[counter])
+	File.readlines($text_files[counter]).each do |line|
+		$repo_links << line
 	end
 
 	Dir.chdir('..')
 
-	clone_and_run(repo_links)
+	clone_and_run($repo_links)
 
 	repo_links.clear()
 	counter++
