@@ -86,13 +86,13 @@ def gime_a_rect x_,y_,w_,h_
 	style="fill:rgb(0,255,0);stroke-width:2;stroke:rgb(0,0,0)" />'
 end
 
-def make_svg
+def make_svg(name)
 	max_width = 7*$words_num
 	max_height = $hash[0][1]*20 + 100
 	width_step = 10
 	num_of_word = 0
 
-	File.open("Most_used_words.svg","w") do |f|
+	File.open(name,"w") do |f|
 		f.write('<svg xmlns="http://www.w3.org/2000/svg" width="'+max_width.to_s+'" height="'+max_height.to_s+'">')
 		f.write(gime_text 0,10,'"Marks":')
 		f.write(gime_text 50,10,$count)
@@ -147,15 +147,16 @@ while true
 	$hash = $hash.sort_by { |key, value| [-value, key] }
 	#copy_hash.merge($hash) { |key, oldval, newval| oldval + newval }
 
-	make_svg()
-
 	if $counter == 0
+		make_svg('ruby')
 		ruby_word = $hash[0][0]
 		most_used << "Ruby -> #{ruby_word}"
 	elsif $counter == 1
+		make_svg('c++')
 		cc_word = $hash[0][0]
 		most_used << "C++ -> #{cc_word}"
 	elsif $counter == 2
+		make_svg('java')
 		java_word = $hash[0][0]
 		most_used << "Java -> #{java_word}"
 	end
