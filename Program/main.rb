@@ -16,7 +16,7 @@ def clone_and_run(repo_links)
 	Dir.chdir($cloning_folder)
 
 	repo_links.each do |link|
-	  `git clone #{link}`
+	  #`git clone #{link}`
 
 	  repo_name = link.split('/').last
 	  repo_name = repo_name.split('.').first
@@ -99,7 +99,7 @@ while true
 
 	$hash = $hash.sort_by { |key, value| [-value, key] }
 
-	max_width = 70*$words_num
+	max_width = 7*$words_num
 	max_height = $hash[0][1]*20 + 100
 	width_step = 10
 	num_of_word = 0
