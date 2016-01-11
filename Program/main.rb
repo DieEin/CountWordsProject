@@ -16,7 +16,7 @@ def clone_and_run(repo_links)
 	Dir.chdir($cloning_folder)
 
 	repo_links.each do |link|
-	  #`git clone #{link}`
+	  `git clone #{link}`
 
 	  repo_name = link.split('/').last
 	  repo_name = repo_name.split('.').first
@@ -79,26 +79,7 @@ def gime_a_rect x_,y_,w_,h_
 	style="fill:rgb(0,255,0);stroke-width:2;stroke:rgb(0,0,0)" />'
 end
 
-while true
-	if $counter == 3
-		break
-	end
-
-	Dir.chdir('..')
-	Dir.chdir($repositories[$counter])
-	File.readlines($text_files[$counter]).each do |line|
-		$repo_links << line
-	end
-
-	Dir.chdir('..')
-
-	clone_and_run($repo_links)
-
-	$repo_links.clear
-	$counter += 1
-
-	$hash = $hash.sort_by { |key, value| [-value, key] }
-
+def make_svg
 	max_width = 7*$words_num
 	max_height = $hash[0][1]*20 + 100
 	width_step = 10
@@ -121,4 +102,27 @@ while true
 		end
 		f.write('</svg>')
 	end
+end
+
+while true
+	if $counter == 3
+		break
+	end
+
+	Dir.chdir('..')
+	Dir.chdir($repositories[$counter])
+	File.readlines($text_files[$counter]).each do |line|
+		$repo_links << line
+	end
+
+	Dir.chdir('..')
+
+	clone_and_run($repo_links)
+
+	$repo_links.clear
+	$counter += 1
+
+	$hash = $hash.sort_by { |key, value| [-value, key] }
+
+	make_svg()
 end
