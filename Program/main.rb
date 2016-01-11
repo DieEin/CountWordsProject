@@ -4,7 +4,7 @@ $repositories = ['Ruby_Repositories', 'CC_Repositories', 'Java_Repositories']
 $text_files = ['ruby_repos.txt', 'cc_repos.txt', 'java_repos.txt']
 $cloning_folder = 'test'
 $expected_extentions = ['.rb', ['.cc', '.cpp', '.h'], '.java']
-counter = 0.to_i
+$counter = 0.to_i
 
 $hash = Hash.new(0)
 $count = 0.to_i
@@ -16,6 +16,8 @@ def clone_and_run(repo_links)
 	  `git clone #{link}`
 
 	  repo_name = link.split('/').last
+	  repo_name = repo_name.split('.').first
+	  repo_name = repo_name.chomp
 
 	  Dir.chdir(repo_name)
 
@@ -31,7 +33,7 @@ def globbing
 			after_dot = filename.split('.').last
 
 			#run(after_dot, expected_extentions[counter], filename)
-			if after_dot.include?($expected_extentions[counter])
+			if $expected_extentions[$counter].include? File.extname(after_dot)
 				parse_file(filename)
 			end
 		elsif File.directory?(filename)
@@ -65,13 +67,13 @@ def run(extension, expected_extention, filename)
 end
 
 while true
-	if counter == 3
+	if $counter == 3
 		break
 	end
 
 	Dir.chdir('..')
-	Dir.chdir($repositories[counter])
-	File.readlines($text_files[counter]).each do |line|
+	Dir.chdir($repositories[$counter])
+	File.readlines($text_files[$counter]).each do |line|
 		$repo_links << line
 	end
 
@@ -79,10 +81,10 @@ while true
 
 	clone_and_run($repo_links)
 
-	repo_links.clear()
-	counter++
+	$repo_links.clear
+	$counter += 1
 
-	@hash.each do |key, value|
+	$hash.each do |key, value|
 		puts "#{key},#{value}"
 	end
 end
