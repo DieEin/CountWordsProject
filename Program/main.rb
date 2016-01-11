@@ -1,4 +1,4 @@
-require 'JSON'
+require 'json'
 
 $repo_links = []
 $repositories_to_csv = []
