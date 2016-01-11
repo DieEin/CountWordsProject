@@ -1,16 +1,18 @@
 $repo_links = []
+$repositories_to_csv = []
 
 $repositories = ['Ruby_Repositories', 'CC_Repositories', 'Java_Repositories']
 $text_files = ['ruby_repos.txt', 'cc_repos.txt', 'java_repos.txt']
 $cloning_folder = 'test'
 $expected_extentions = ['.rb', ['.cc', '.cpp', '.h'], '.java']
-$counter = 0.to_i
 
+$counter = 0.to_i
 BONUS_PIXELS = 15
 $words_num = 0.to_i
 
 $hash = Hash.new(0)
 $count = 0.to_i
+copy_hash = Hash.new(0)
 
 def clone_and_run(repo_links)
 	Dir.chdir($cloning_folder)
@@ -25,6 +27,8 @@ def clone_and_run(repo_links)
 	  Dir.chdir(repo_name)
 
 	  globbing()
+
+	  $repositories_to_csv << "#{link},#{$words_num}"
 
 	  Dir.chdir('..')
 	end
@@ -104,8 +108,23 @@ def make_svg
 	end
 end
 
+def make_csv
+	File.open('repositories.csv', 'w') do |csv|
+		csv.write($repositories_to_csv)
+	end
+end
+def most_used_words_to_csv(most_used)
+	File.open('most_used_words_in_languages.csv',  'w') do |csv|
+		csv.write(most_used)
+	end
+end
+
+most_used = []
+
 while true
 	if $counter == 3
+		make_csv()
+		most_used_words_to_csv(most_used)
 		break
 	end
 
@@ -123,6 +142,22 @@ while true
 	$counter += 1
 
 	$hash = $hash.sort_by { |key, value| [-value, key] }
+	#copy_hash.merge($hash) { |key, oldval, newval| oldval + newval }
+	p $hash[0][1]
 
 	make_svg()
+
+	if $counter == 0
+		ruby_word = $hash[0][0]
+		most_used << "Ruby -> #{ruby_word}"
+	elsif $counter == 1
+		cc_word = $hash[0][0]
+		most_used << "C++ -> #{cc_word}"
+	elsif $counter == 2
+		java_word = $hash[0][0]
+		most_used << "Java -> #{java_word}"
+	end
+
+	$hash.clear
+	$words_num = 0.to_i
 end
