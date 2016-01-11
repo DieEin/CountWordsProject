@@ -6,6 +6,8 @@ $cloning_folder = 'test'
 $expected_extentions = ['.rb', ['.cc', '.cpp', '.h'], '.java']
 $counter = 0.to_i
 
+BONUS_PIXELS = 15
+
 $hash = Hash.new(0)
 $count = 0.to_i
 
@@ -85,6 +87,39 @@ while true
 	$counter += 1
 
 	$hash.each do |key, value|
-		puts "#{key},#{value}"
+
+		def gime_text x_,y_,word
+			'<text x="'+x_.to_s+'" y="'+y_.to_s+'" fill="black">'+word.to_s+'</text>'
+		end
+
+		def gime_a_rect x_,y_,w_,h_
+			'<rect x="'+x_.to_s+'" y="'+y_.to_s+'" width="'+w_.to_s+'" height="'+h_.to_s+'" 
+			style="fill:rgb(0,255,0);stroke-width:2;stroke:rgb(0,0,0)" />'
+		end
+
+		max_width = 70*words_num
+		max_height = result.word_counter[0][1]*20 + 100
+		width_step = 10
+		num_of_word = 0
+		
+
+		File.open("Most_used_words.svg","w") do |f|
+			f.write('<svg xmlns="http://www.w3.org/2000/svg" width="'+max_width.to_s+'" height="'+max_height.to_s+'">')
+			f.write(gime_text 0,10,'"Marks":')
+			f.write(gime_text 50,10,result.marks_counter)
+			result.word_counter.each do |word|
+				x = width_step
+				height = 20*result.word_counter[num_of_word][1]
+				h_step = max_height-height-25
+				width = 60
+				f.write(gime_a_rect width_step, h_step, width, height)
+				f.write(gime_text x+width/2 , h_step+result.word_counter[num_of_word][1]*10 , result.word_counter[num_of_word][1])
+				f.write(gime_text x+BONUS_PIXELS , h_step+height+BONUS_PIXELS , result.word_counter[num_of_word][0])
+				width_step = width_step + 70
+				num_of_word = num_of_word + 1
+			end
+			f.write('</svg>')
+		end
+		result
 	end
 end
