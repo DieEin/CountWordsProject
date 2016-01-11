@@ -122,6 +122,21 @@ def most_used_words_to_csv(most_used)
 	end
 end
 
+def make_json(name)
+	tempHash = Hash.new(0)
+
+	tempHash = {
+		"marks" => $count,
+		"words" => $hash
+	}
+
+	json_hash = JSON.pretty_generate(tempHash)
+
+	File.open(name, 'w') do |file|
+		file << json_hash
+	end
+end
+
 most_used = []
 
 while true
@@ -148,14 +163,17 @@ while true
 	#copy_hash.merge($hash) { |key, oldval, newval| oldval + newval }
 
 	if $counter == 0
+		make_json('ruby')
 		make_svg('ruby')
 		ruby_word = $hash[0][0]
 		most_used << "Ruby -> #{ruby_word}"
 	elsif $counter == 1
+		make_json('c++')
 		make_svg('c++')
 		cc_word = $hash[0][0]
 		most_used << "C++ -> #{cc_word}"
 	elsif $counter == 2
+		make_json('java')
 		make_svg('java')
 		java_word = $hash[0][0]
 		most_used << "Java -> #{java_word}"
