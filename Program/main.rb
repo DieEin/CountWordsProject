@@ -22,7 +22,7 @@ def clone_and_run(repo_links)
 	Dir.chdir($cloning_folder)
 
 	repo_links.each do |link|
-	  #`git clone #{link}`
+	  `git clone #{link}`
 
 	  repo_name = link.split('/').last
 	  repo_name = repo_name.split('.').first
@@ -42,10 +42,10 @@ end
 def globbing
 	Dir.glob('*').each do |filename|
 		if File.file?(filename)
-			after_dot = filename.split('.').last
+			#after_dot = filename.split('.').last
 
 			#run(after_dot, expected_extentions[counter], filename)
-			if $expected_extentions[$counter].include? File.extname(after_dot)
+			if $expected_extentions[$counter].include? File.extname(filename)
 				$lines_num += `wc -l "#{filename}"`.strip.split(' ')[0].to_i
 				parse_file(filename)
 			end
@@ -159,8 +159,7 @@ while true
 
 	clone_and_run($repo_links)
 
-	$repo_links.clear
-	$counter += 1
+	$repo_links.clear()
 
 	$hash = $hash.sort_by { |key, value| [-value, key] }
 	#copy_hash.merge($hash) { |key, oldval, newval| oldval + newval }
@@ -184,6 +183,8 @@ while true
 
 	$hash.clear
 	$words_num = 0.to_i
+	$counter += 1
+	$count = 0.to_i
 end
 
 #https://github.com/layervault/psd.rb.git
