@@ -35,7 +35,6 @@ https://github.com/voltrb/volt.git
 https://github.com/solnic/virtus.git
 https://github.com/presidentbeef/brakeman.git
 https://github.com/sparklemotion/mechanize.git
-https://github.com/layervault/psd.rb.git
 https://github.com/CanCanCommunity/cancancan.git
 https://github.com/fatfreecrm/fat_free_crm.git
 https://github.com/padrino/padrino-framework.git
@@ -54,9 +53,7 @@ https://github.com/edavis10/redmine.git
 https://github.com/lotus/lotus.git
 https://github.com/jeremyevans/sequel.git
 https://github.com/postrank-labs/goliath.git
-https://github.com/octokit/octokit.rb.git
 https://github.com/aasm/aasm.git
-https://github.com/octokit/octokit.rb.git
 https://github.com/ruby-concurrency/concurrent-ruby.git
 https://github.com/mustache/mustache.git
 https://github.com/pdfkit/pdfkit.git

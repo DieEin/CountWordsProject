@@ -9,6 +9,7 @@ $expected_extentions = ['.rb', ['.cc', '.cpp', '.h'], '.java']
 $counter = 0.to_i
 BONUS_PIXELS = 15
 $words_num = 0.to_i
+$lines_num = 0.to_i
 
 $hash = Hash.new(0)
 $count = 0.to_i
@@ -28,9 +29,10 @@ def clone_and_run(repo_links)
 
 	  globbing()
 
-	  $repositories_to_csv << "#{link},#{$words_num}"
+	  $repositories_to_csv << "#{link},#{$lines_num}"
 
 	  Dir.chdir('..')
+	  $lines_num = 0.to_i
 	end
 end
 
@@ -41,6 +43,7 @@ def globbing
 
 			#run(after_dot, expected_extentions[counter], filename)
 			if $expected_extentions[$counter].include? File.extname(after_dot)
+				$lines_num += `wc -l "#{filename}"`.strip.split(' ')[0].to_i
 				parse_file(filename)
 			end
 		elsif File.directory?(filename)
@@ -143,7 +146,6 @@ while true
 
 	$hash = $hash.sort_by { |key, value| [-value, key] }
 	#copy_hash.merge($hash) { |key, oldval, newval| oldval + newval }
-	p $hash[0][1]
 
 	make_svg()
 
@@ -161,3 +163,6 @@ while true
 	$hash.clear
 	$words_num = 0.to_i
 end
+
+#https://github.com/layervault/psd.rb.git
+#https://github.com/octokit/octokit.rb.git
