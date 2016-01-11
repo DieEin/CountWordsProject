@@ -166,18 +166,18 @@ while true
 	#copy_hash.merge($hash) { |key, oldval, newval| oldval + newval }
 
 	if $counter == 0
-		make_json('ruby')
-		make_svg('ruby')
+		make_json('ruby.json')
+		make_svg('ruby.svg')
 		ruby_word = $hash[0][0]
 		most_used << "Ruby -> #{ruby_word}"
 	elsif $counter == 1
-		make_json('c++')
-		make_svg('c++')
+		make_json('c++.json')
+		make_svg('c++.svg')
 		cc_word = $hash[0][0]
 		most_used << "C++ -> #{cc_word}"
 	elsif $counter == 2
-		make_json('java')
-		make_svg('java')
+		make_json('java.json')
+		make_svg('java.svg')
 		java_word = $hash[0][0]
 		most_used << "Java -> #{java_word}"
 	end
