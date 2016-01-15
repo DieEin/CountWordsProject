@@ -16,6 +16,9 @@ class Main
 		@svg_names = ['ruby_repos.svg', 'cc_repos.svg', 'java_repos.svg']
 
 		@go_back = '..'
+
+		@second = Hash.new(0)
+		@third = Hash.new(0)
 	end
 	def run
 		while true
@@ -29,8 +32,20 @@ class Main
 				@repo_links << line
 			end
 			Dir.chdir(@go_back)
-			clone_and_run = Clone.new(@repo_links, @counter, @lines_num, @count, @hash)
-			@repositories_to_csv = clone_and_run.run()
+			if @counter == 0
+				clone_and_run = Clone.new(@repo_links, @counter, @lines_num, @count, @hash)
+				@repositories_to_csv, @count, @hash = clone_and_run.run()
+			elsif @counter == 1
+				clone_and_run = Clone.new(@repo_links, @counter, @lines_num, @count, @second)
+				@repositories_to_csv, @count, @second = clone_and_run.run()
+
+				@hash = @second
+			elsif @counter == 2
+				clone_and_run = Clone.new(@repo_links, @counter, @lines_num, @count, @third)
+				@repositories_to_csv, @count, @third = clone_and_run.run()
+
+				@hash = @third
+			end
 
 			@repo_links.clear()
 			@hash = @hash.sort_by { |key, value| [-value, key] }

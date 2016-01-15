@@ -26,14 +26,13 @@ class Clone
 			Dir.chdir(repo_name)
 
 			globbing = Glob.new(@counter, @lines_num, @count, @hash)
-			@lines_num = globbing.glob_it()
+			@lines_num, @count, @hash = globbing.glob_it()
 
 			@repositories_to_csv << "#{link},#{@lines_num}"
 
 			Dir.chdir(@go_back)
 			@lines_num = 0.to_i
 		end
-
-		return @repositories_to_csv
+		return @repositories_to_csv, @count, @hash
 	end
 end

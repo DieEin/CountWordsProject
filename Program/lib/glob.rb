@@ -39,6 +39,6 @@ class Glob
 			end
 		end
 
-		return @lines_num
+		return @lines_num, @count, @hash
 	end
 end
