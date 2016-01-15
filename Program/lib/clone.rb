@@ -28,7 +28,8 @@ class Clone
 			globbing = Glob.new(@counter, @lines_num, @count, @hash)
 			@lines_num, @count, @hash = globbing.glob_it()
 
-			@repositories_to_csv << "#{link},#{@lines_num}"
+			link = link.chomp()
+			@repositories_to_csv << "#{link},#{@lines_num}\n"
 
 			Dir.chdir(@go_back)
 			@lines_num = 0.to_i

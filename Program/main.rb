@@ -13,7 +13,8 @@ class Main
 
 		@repositories = ['Ruby_Repositories', 'CC_Repositories', 'Java_Repositories']
 		@text_files = ['ruby_repos.txt', 'cc_repos.txt', 'java_repos.txt']
-		@svg_names = ['ruby_repos.svg', 'cc_repos.svg', 'java_repos.svg']
+		@file_names = ['ruby_repos', 'cc_repos', 'java_repos']
+		@file_exts = ['.svg', '.json']
 
 		@go_back = '..'
 
@@ -38,8 +39,10 @@ class Main
 			@repo_links.clear()
 			@hash = @hash.sort_by { |key, value| [-value, key] }
 
-			result = Result.new(@svg_names[@counter], @hash, @count)
-			result.to_svg()
+			result = Result.new(@hash, @count)
+			result.to_svg(@file_names[@counter] + @file_exts[0])
+			result.to_json(@file_names[@counter] + @file_exts[1])
+			result.to_csv(@repositories_to_csv)
 
 			@counter += 1
 			@hash = @help_hash
