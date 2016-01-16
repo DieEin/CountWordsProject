@@ -48,6 +48,7 @@ class Main
 			@counter += 1
 			@hash = @help_hash
 			@count = 0
+			@words_num = 0
 		end
 	end
 end
