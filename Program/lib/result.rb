@@ -25,7 +25,7 @@ class Result
 
 	def to_svg(name)
 		max_width = 70 * @words_num
-		max_height = 500 + 500 #500 for columns and 500 for words, marks
+		max_height = 500 + 650 #500 for columns and 650 for words, marks...
 		width_step = 0
 		num_of_word = 0
 
@@ -39,7 +39,7 @@ class Result
 				if height < 1
 					height = 1
 				end
-				h_step = max_height-height-25
+				h_step = max_height-height-150
 				width = 60
 				f.write(gime_a_rect width_step, h_step, width, height)
 				f.write(gime_text x+width/2 , h_step+@hash[num_of_word][1]*10 , @hash[num_of_word][1])
