@@ -20,8 +20,8 @@ class Result
 	end
 
 	def to_svg(name)
-		max_width = 7 * @words_num
-		max_height = @hash[0][1]*20 + 100
+		max_width = 70 * @words_num
+		max_height = 500 + 100
 		width_step = 10
 		num_of_word = 0
 
@@ -31,7 +31,7 @@ class Result
 			f.write(gime_text 50,10,@count)
 			@hash.each do |word|
 				x = width_step
-				height = 20*@hash[num_of_word][1]
+				height = @hash[num_of_word][1]*500/@hash[0][1]
 				h_step = max_height-height-25
 				width = 60
 				f.write(gime_a_rect width_step, h_step, width, height)
