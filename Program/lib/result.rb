@@ -1,3 +1,6 @@
+require 'json'
+require 'csv'
+
 class Result
 	def initialize(hash, count, words_num)
 		@hash = hash
