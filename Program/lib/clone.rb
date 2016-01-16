@@ -1,10 +1,11 @@
 require_relative './glob'
 
 class Clone
-	def initialize(repo_links, counter, lines_num, count, hash)
+	def initialize(repo_links, counter, lines_num, words_num, count, hash)
 		@repo_links = repo_links
 		@counter = counter
 		@lines_num = lines_num
+		@words_num = words_num
 		@count = count
 		@hash = hash
 
@@ -25,8 +26,8 @@ class Clone
 
 			Dir.chdir(repo_name)
 
-			globbing = Glob.new(@counter, @lines_num, @count, @hash)
-			@lines_num, @count, @hash = globbing.glob_it()
+			globbing = Glob.new(@counter, @lines_num, @words_num, @count, @hash)
+			@lines_num, @words_num, @count, @hash = globbing.glob_it()
 
 			link = link.chomp()
 			@repositories_to_csv << "#{link},#{@lines_num}\n"
@@ -34,6 +35,6 @@ class Clone
 			Dir.chdir(@go_back)
 			@lines_num = 0.to_i
 		end
-		return @repositories_to_csv, @count, @hash
+		return @repositories_to_csv, @count, @words_num, @hash
 	end
 end

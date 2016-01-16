@@ -1,7 +1,8 @@
 class Glob
-	def initialize(counter, lines_num, count, hash)
+	def initialize(counter, lines_num, words_num, count, hash)
 		@counter = counter
 		@lines_num = lines_num
+		@words_num = words_num
 		@count = count
 		@hash = hash
 
@@ -16,6 +17,7 @@ class Glob
 
 		words.each do |word|
 			@hash[word] += 1
+			@words_num += 1
 		end
 	end
 	def parse_file(filename)
@@ -39,6 +41,6 @@ class Glob
 			end
 		end
 
-		return @lines_num, @count, @hash
+		return @lines_num, @words_num, @count, @hash
 	end
 end

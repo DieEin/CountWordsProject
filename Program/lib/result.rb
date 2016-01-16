@@ -2,9 +2,10 @@ require 'json'
 require 'csv'
 
 class Result
-	def initialize(hash, count)
+	def initialize(hash, count, words_num)
 		@hash = hash
 		@count = count
+		@words_num = words_num
 
 		@BONUS_PIXELS = 15
 	end
@@ -19,7 +20,7 @@ class Result
 	end
 
 	def to_svg(name)
-		max_width = 7000
+		max_width = 7 * @words_num
 		max_height = @hash[0][1]*20 + 100
 		width_step = 10
 		num_of_word = 0
@@ -59,7 +60,7 @@ class Result
 	def to_csv(repos_array)
 		File.open('repositories.csv', 'a') do |file|
 			p repos_array
-			
+
 			repos_array.each do |line|
 				file << line
 			end
